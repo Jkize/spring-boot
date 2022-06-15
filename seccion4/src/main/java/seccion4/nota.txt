@@ -1,0 +1,12 @@
+Basically I learn about the injection dependency and controll
+Property and fields
+
+Every bean is a singleton by default
+We can change with the attr scope="singleton" inside the bean 
+scope:
+singleton   -> create a single shared instance of the bean. Default Scope
+prototype  -> creates a new bean instance for each container request
+
+request 
+session 
+global-session 

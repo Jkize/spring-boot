@@ -1,0 +1,8 @@
+This anotations ;)
+
+Using with propertySource
+
+@PropertySource("classpath:mylogger.properties")
+public class MyLoggerConfig {
+ ...
+	@Value("${root.logger.level}")

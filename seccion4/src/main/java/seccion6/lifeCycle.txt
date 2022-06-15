@@ -1,0 +1,12 @@
+
+container Started -> Bean Instantiated -> Dependencies Injected -> Internal Spring Processing -> your Custom Init Method 
+Bean is Ready for use 
+Container is shtdown -> your Custom Destroy method -> stop
+
+--> You can add custom code during bean Initialization.
+--> You can add custom code during bean destruction
+
+
+
+ALL THE SCOPE HAVE THE METHOD INIT AND DESTROY BUT THE SCOPE PROPERTY DOESN'T HAVE THE METHOD DESTROY IN THIS CASE I HAVE TO IMPLEMENT THE INTERFACE  DisposableBean (Interface internal of spring)
+with this, I only have to use the init-method in the xml and when it's destroyed the disposableBean call the destroy ;) 

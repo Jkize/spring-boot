@@ -1,0 +1,17 @@
+Entity lifecycle
+
+Detach ->
+Merge ->
+Persist -> 
+Refresh ->  
+
+
+ cascasde -> apply the same operation to realted entities
+ Cascade Type
+ -> Persist -> If entity is persisted / saves, related entity will also be persisted
+ -> Remove -> if entity is remove/deleted, related entity will also be deleted 
+ -> Refresh -> If entity is refreshed, related entity will also be refreshed
+ -> Detach -> if entity is detached (not associated w/ session), then related entity will also be detached
+ -> Merge -> If entity is merged, then related entity will also be merged 
+ -> All -> All of above cascade types 
+ 
