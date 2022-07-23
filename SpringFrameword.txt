@@ -15,3 +15,52 @@ Refresh ->
  -> Merge -> If entity is merged, then related entity will also be merged 
  -> All -> All of above cascade types 
  
+Aspect- Oriented Programming
+
+ * Programming technique based on concept of an aspect 
+ * Aspect encapsulates cross-cutting logic 
+Cross- Cutting Concerns ->   are parts of a program that rely on or must affect many other parts of the system. 
+Aspect can be reused at multiple locations - Same apsect/class applied based on configuration
+
+ Benefits of AOP:
+ * Code for Aspect is defined in a single class
+  * Much better than being scattered everywhere
+  * Promotes code reuse and easier to change
+ 
+ * Business code in your application is cleaner:
+  * Only applies to business functionality: addAccount 
+  * Reduces code complexity
+  
+ * Configurable
+  * Based on configuration, apply Aspects selectively to different parts of application
+  * No need to make changes to main applicaiton code... very important!
+
+ * Most common 
+  * Loggin, security, transaction
+ 
+ * Audit logging
+  *Who, what, when, where 
+ 
+ * Exception handling
+  * log exception and notify DevOps team via SMS / email 
+ 
+ * API Management
+  * How many times has a method been called user
+  * Analytics: What are peak times? What is average load? who is top user? 
+  
+  
+  Advantages:
+  Reusable modules, resolve code tangling, resolve code scatter, applied selectively based on configuration 
+  Disadvantages:
+  Too many aspects and app flow is hard to follow, Minor performance cost for aspect execution (run-time weaving)
+  
+  
+  Aspect : Module of code for a cross-cutting  concernc ( loggin, security, ..)
+  Advice: What action is taken and when it should be applied (@Before, @After, @Around when the method is not finished)....
+  Join Point: When to apply code during program execution 
+  PointCut: A predicate expression for where advice should be applied 
+ 
+  Weaving: Connectin aspects to target objects to create an advised object 
+  
+  Spring AOP vs AspectJs 
+  

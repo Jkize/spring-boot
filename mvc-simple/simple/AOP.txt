@@ -1,0 +1,110 @@
+ Pointcut expression language
+      
+execution (
+modifiers-pattern? return-type-pattern declaring-type-pattern?
+method-name-pattern(param-pattern) throws-pattern?
+)
+it's optional if has "?"
+
+
+
+@Before("execution(public String helloWorld())") // method in any class
+
+@Before("execution(public String com.mvc.simple.service.CustomerService.helloWorld())") //Specified method
+
+@Before("execution( public void add*() )") Math methods starting with add in any class
+
+@Before("execution( public VerificationResult processCreditCard*())")  
+
+@Before("execution(public * processCreditCard*())") Any class start with processCreditCard with any type of return
+
+Paramter pattern WildCard
+() - matches a method with no arguments
+(*) -matches a method with one argument of any type
+(..) - matches a method with 0 or more argument of any type
+
+@Before("execution (* addAccount(com....Account))") Any return and 1 param 
+
+@Before("execution (* addAccount(..))") Match addAccount methods with any number of argguments
+
+@Before("execution(* com.mvc.simple.service.*.*(..))") Match any method in our service package
+
+@Before("execution (* addAccount(com....Account,..))") Math method name addAccount with the first argument in account and more params
+
+IMPORTANT: We need to put in the params the full class (with package) and other way this is not going to work
+
+
+Problem:
+ * How can we reuse a pintcut expression 
+ * We can copy and paste but it's not the idea. We can use the annotation  pointCut
+
+Benefits of pointCut declaration
+Easily reuse pointcut expressions
+Update pointcut in one location
+Can also share and combine pointcut expressiones ( comming up later)
+
+ @Pointcut("execution(* com.mvc.simple.service.*.*(..))")
+    private void forServicePackage() {
+    };
+and with the before statement we can use in any annotation AOP using only the name of the fuction 
+
+AND (&&) OR (||) NOT (!)
+
+@Before("expressionONe() && expressionTwo()")
+@Before("expressionONe() || expressionTwo()")
+@Before("expressionONe() && !expressionTwo()")
+
+All methods in a package EXCEPT getter/setter methods
+@Pointcut("forDaoPackage() && !(getter() || setter())")
+
+
+Aspect Order
+Refactor: Place advices in separate aspects 
+Control order on Aspects using the @Order annotation
+Guarantees order of when Aspects are applied
+
+@Order(1) //Annotation to do a order in the AOP 
+Range: Integer.MIN_VALUE to Integer.MAX_VALUE
+Negative numbers are allowed
+Does not have to be consecutive
+¿What if aspects have the exact same @Order annotation?
+The order at this point is undefined
+
+
+WHEN WE NEED TO USE A POINTCUT THE OTHER CLASS. THIS CLASS MUST HAVE THE POINTCUT PUBLIC 
+AND WE NEED TO PUT IN THE NEW CLASS THE REFERENCE 
+EXAMPLE: 
+fULLY QUALIFIED CLASS NAME 
+@BEFORE("com.mvc.aspect.forEntityPackage()")
+
+
+We use JoinPoint point to access the arguments and MethodSignature point.getSignature()
+
+@AfterReturning Run after the method ( success execution)
+@AfterThrowing  Run after method ( if exception thrown)
+@After Run after the method (finally)
+@Around Run before and after method 
+
+Example AfterReturning the returning must has the same name in the params inside the method to get the returning
+    @AfterReturning(pointcut = "execution(* com.mvc.simple.service.UserService.getUsers()) ", returning = "users")
+    public void afterReturningFindUsers(
+            JoinPoint joinPoint, List<String> users) {
+                }
+
+Post-processing Data 
+We can modify the data with the advice AfterReturning access to the variable
+
+With @AfterThrowing advice - use Cases 
+* Log the exception
+* Perform auditing on the exception 
+* Notify DevOps team via email or SMS  (Use with care. Don't spam :-) )
+* Encapsulate this functionality in AOP aspect for easy reuse 
+
+
+@After Advice - tips
+The advice does not have access to the exception
+    If you need exception, then use @AfterThrowing advice 
+
+    The advice should be able to run in the case of success or error 
+        Your code should not depend on happy path or an exception
+        Loggin / auditing is the easiest case here
